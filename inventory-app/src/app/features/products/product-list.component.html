@@ -1,0 +1,72 @@
+<div class="kick">Inventario</div>
+<h1 class="display">Listado de productos</h1>
+<p class="lead">Filtra por categoría y da clic en un producto para ver su historial de movimientos.</p>
+
+<div class="row" style="margin-top:20px;max-width:280px">
+  <div class="field" style="flex:1">
+    <label>Categoría</label>
+    <select class="sel" (change)="onCategoryChange($event)">
+      <option value="">Todas las categorías</option>
+      @for (category of store.categories(); track category) {
+        <option [value]="category" [selected]="store.categoryFilter() === category">{{ category }}</option>
+      }
+    </select>
+  </div>
+</div>
+
+@if (store.loading()) {
+  <div class="skel" style="height:300px;margin-top:20px"></div>
+} @else {
+  <div class="twrap" style="margin-top:20px">
+    <table class="tbl">
+      <thead>
+        <tr>
+          <th class="l">SKU</th>
+          <th class="l">Nombre</th>
+          <th class="l">Categoría</th>
+          <th>Stock</th>
+          <th>Precio</th>
+          <th class="l">Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (product of store.pagedProducts(); track product.id) {
+          <tr #productRow>
+            <td class="l" style="font-family:var(--mono);color:var(--faint)">{{ product.sku }}</td>
+            <td class="l"><b>{{ product.name }}</b></td>
+            <td class="l">{{ product.category }}</td>
+            <td>{{ product.currentStock }}</td>
+            <td>{{ product.unitPrice | currency:'USD' }}</td>
+            <td class="l"><app-stock-badge [currentStock]="product.currentStock" [minStock]="product.minStock" /></td>
+          </tr>
+          <tr>
+            <td [attr.colspan]="6" style="padding:0;border:none">
+              @defer (on interaction(productRow)) {
+                <div style="padding:14px 6px 18px">
+                  <app-movement-history [productId]="product.id" />
+                </div>
+              } @placeholder {
+                <span></span>
+              } @loading {
+                <div class="row" style="padding:12px 6px"><div class="spinner"></div> Cargando historial…</div>
+              } @error {
+                <div class="warn" style="margin:10px 6px">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>
+                  <div>No se pudo cargar el historial de este producto.</div>
+                </div>
+              }
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <div class="row" style="margin-top:16px;justify-content:space-between">
+    <span class="lead" style="font-size:12px">Página {{ store.page() + 1 }} de {{ store.totalPages() }}</span>
+    <div class="row">
+      <button class="btn btn-ghost btn-sm" type="button" [disabled]="store.page() === 0" (click)="store.setPage(store.page() - 1)">Anterior</button>
+      <button class="btn btn-ghost btn-sm" type="button" [disabled]="store.page() + 1 >= store.totalPages()" (click)="store.setPage(store.page() + 1)">Siguiente</button>
+    </div>
+  </div>
+}

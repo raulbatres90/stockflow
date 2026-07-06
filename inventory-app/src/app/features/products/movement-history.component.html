@@ -1,0 +1,23 @@
+@if (loading()) {
+  <div class="row" style="padding:10px 0"><div class="spinner"></div> Cargando historial…</div>
+} @else if (movements().length === 0) {
+  <p class="lead">Sin movimientos registrados para este producto.</p>
+} @else {
+  <div class="twrap">
+    <table class="tbl">
+      <thead>
+        <tr><th class="l">Fecha</th><th class="l">Tipo</th><th>Cantidad</th><th class="l">Motivo</th></tr>
+      </thead>
+      <tbody>
+        @for (movement of movements(); track movement.id) {
+          <tr>
+            <td class="l">{{ movement.timestamp | date:'short' }}</td>
+            <td class="l"><span class="pill" [class.gr]="movement.type === 'IN'" [class.rd]="movement.type === 'OUT'">{{ movement.type }}</span></td>
+            <td>{{ movement.quantity }}</td>
+            <td class="l">{{ movement.reason || '—' }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+}

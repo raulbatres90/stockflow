@@ -1,0 +1,55 @@
+<div class="kick">Dashboard</div>
+<h1 class="display">Monitoreo de inventario</h1>
+<p class="lead">Resumen en tiempo real del catálogo, alertas y valor total del inventario.</p>
+
+<div class="kpis" style="margin-top:24px">
+  <div class="card kpi">
+    <div class="kl">Productos</div>
+    <div class="kv">{{ store.totalProducts() }}</div>
+    <div class="ks">en el catálogo</div>
+  </div>
+  <div class="card kpi">
+    <div class="kl">Alertas activas</div>
+    <div class="kv">{{ store.alerts().length }}</div>
+    <div class="ks">stock bajo o crítico</div>
+  </div>
+  <div class="card kpi" [class.critical]="store.totalCriticalAlerts() > 0">
+    <div class="kl">Alertas críticas</div>
+    <div class="kv" [class.go]="store.totalCriticalAlerts() === 0" [class.rd]="store.totalCriticalAlerts() > 0">{{ store.totalCriticalAlerts() }}</div>
+    <div class="ks">stock crítico</div>
+  </div>
+  <div class="card kpi">
+    <div class="kl">Valor de inventario</div>
+    <div class="kv go">{{ store.totalInventoryValue() | currency:'USD':'symbol':'1.2-2' }}</div>
+    <div class="ks">suma stock × precio</div>
+  </div>
+</div>
+
+@if (store.loading()) {
+  <div class="grid2" style="margin-top:24px">
+    <div class="skel" style="height:120px"></div>
+    <div class="skel" style="height:120px"></div>
+  </div>
+}
+
+@if (store.error()) {
+  <div class="warn" style="margin-top:20px">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>
+    <div>{{ store.error() }}</div>
+  </div>
+}
+
+<div style="margin-top:24px">
+  @defer (on viewport) {
+    <app-advanced-stats />
+  } @placeholder {
+    <div class="skel" style="height:180px"></div>
+  } @loading {
+    <div class="row" style="justify-content:center;padding:40px 0"><div class="spinner"></div></div>
+  } @error {
+    <div class="warn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>
+      <div>No se pudieron cargar las estadísticas avanzadas.</div>
+    </div>
+  }
+</div>

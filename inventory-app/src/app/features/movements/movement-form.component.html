@@ -1,0 +1,52 @@
+<div class="kick">Movimientos</div>
+<h1 class="display">Registrar movimiento</h1>
+<p class="lead">Registra una entrada o salida de inventario. El stock del producto se actualiza automáticamente.</p>
+
+<form [formGroup]="form" (ngSubmit)="submit()" class="card panel" style="margin-top:24px;max-width:480px">
+  <div class="field" style="margin-bottom:16px">
+    <label>Producto</label>
+    <select class="sel" formControlName="productId">
+      <option [ngValue]="null">Selecciona un producto…</option>
+      @for (product of store.products(); track product.id) {
+        <option [ngValue]="product.id">{{ product.name }} ({{ product.sku }}) — stock: {{ product.currentStock }}</option>
+      }
+    </select>
+    @if (form.controls.productId.invalid && form.controls.productId.touched) {
+      <div class="field-error">Selecciona un producto.</div>
+    }
+  </div>
+
+  <div class="field" style="margin-bottom:16px">
+    <label>Tipo de movimiento</label>
+    <select class="sel" formControlName="type">
+      <option value="IN">Entrada (IN)</option>
+      <option value="OUT">Salida (OUT)</option>
+    </select>
+  </div>
+
+  <div class="field" style="margin-bottom:16px">
+    <label>Cantidad</label>
+    <input
+      class="inp"
+      type="number"
+      min="1"
+      formControlName="quantity"
+      [class.invalid]="form.controls.quantity.invalid && form.controls.quantity.touched" />
+    @if (form.controls.quantity.invalid && form.controls.quantity.touched) {
+      <div class="field-error">La cantidad debe ser al menos 1.</div>
+    }
+  </div>
+
+  <div class="field" style="margin-bottom:20px">
+    <label>Motivo (opcional)</label>
+    <textarea class="inp" rows="2" formControlName="reason" placeholder="Ej: venta a cliente, ajuste de inventario…"></textarea>
+  </div>
+
+  <button class="btn btn-gold" type="submit" [disabled]="submitting()">
+    @if (submitting()) {
+      <div class="spinner"></div> Registrando…
+    } @else {
+      Registrar movimiento
+    }
+  </button>
+</form>

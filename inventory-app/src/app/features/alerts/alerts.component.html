@@ -1,0 +1,25 @@
+<div class="kick">Monitoreo</div>
+<h1 class="display">Panel de alertas</h1>
+<p class="lead">Productos cuyo stock está en su mínimo o por debajo. Los críticos requieren atención inmediata.</p>
+
+@if (store.loading()) {
+  <div class="skel" style="height:200px;margin-top:20px"></div>
+} @else if (store.alerts().length === 0) {
+  <div class="warn ok" style="margin-top:20px">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+    <div>Sin alertas activas. Todo el inventario está por encima de su mínimo.</div>
+  </div>
+} @else {
+  <div class="card" style="margin-top:20px">
+    @for (alert of store.alerts(); track alert.productId; let last = $last) {
+      <div class="alert-row" [class.last]="last">
+        <div class="dot" [class.rd]="alert.severity === 'CRITICAL'" [class.am]="alert.severity === 'LOW'"></div>
+        <div style="flex:1">
+          <div class="an">{{ alert.productName }}</div>
+          <div class="as">Stock actual: {{ alert.currentStock }} · Mínimo: {{ alert.minStock }}</div>
+        </div>
+        <span class="pill" [class.rd]="alert.severity === 'CRITICAL'" [class.am]="alert.severity === 'LOW'">{{ alert.severity }}</span>
+      </div>
+    }
+  </div>
+}
