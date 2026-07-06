@@ -1,0 +1,30 @@
+<div id="bgfx"></div>
+
+<div class="shell">
+  <aside class="side">
+    <div class="brand">
+      <div class="brand-mark">SF</div>
+      <div>
+        <div class="brand-name">StockFlow</div>
+        <div class="brand-sub">Inventory Monitor</div>
+      </div>
+    </div>
+
+    <nav class="nav">
+      @for (item of navItems; track item.path) {
+        <a [routerLink]="item.path" routerLinkActive="active" class="nav-link">{{ item.label }}</a>
+      }
+    </nav>
+
+    <div class="side-footer">
+      <span class="kick">StockFlow Inc.</span>
+      <p class="lead" style="font-size:11.5px;margin-top:4px">Monitoreo de inventario en tiempo real</p>
+    </div>
+  </aside>
+
+  <main class="content">
+    <router-outlet />
+  </main>
+</div>
+
+<app-toast-container />

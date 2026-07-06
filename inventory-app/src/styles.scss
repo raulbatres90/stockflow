@@ -1,0 +1,156 @@
+@import url('https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap');
+
+/* ===================== TOKENS (Sistema de diseño Sanchia) ===================== */
+:root {
+  --navy: #0E1A3A;
+  --navy2: #0A1330;
+  --navy3: #091029;
+  --blue: #25548C;
+  --blue-br: #4E86CE;
+  --gold: #D09F48;
+  --gold2: #E6BB6E;
+  --text: #EAF0FB;
+  --muted: #9FB0D0;
+  --faint: #5E709E;
+  --red: #E0736A;
+  --green: #6FBF8F;
+  --line: rgba(255, 255, 255, .10);
+  --line2: rgba(255, 255, 255, .16);
+  --surf: rgba(255, 255, 255, .035);
+  --surf2: rgba(255, 255, 255, .06);
+  --b-gold: rgba(208, 159, 72, .16);
+  --b-blue: rgba(78, 134, 206, .18);
+  --mono: 'JetBrains Mono', ui-monospace, monospace;
+  --sans: 'Satoshi', 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background: #05080F;
+  color: var(--text);
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+#bgfx {
+  position: fixed; inset: 0; z-index: 0;
+  background:
+    radial-gradient(1100px 620px at 88% -10%, rgba(37, 84, 140, .30), transparent 60%),
+    radial-gradient(900px 600px at -5% 110%, rgba(208, 159, 72, .10), transparent 55%),
+    linear-gradient(160deg, #0E1A3A, #0B1530 55%, #091029);
+}
+
+/* ===================== TIPOGRAFÍA ===================== */
+.kick { font-family: var(--mono); font-size: 11px; font-weight: 700; letter-spacing: .2em; color: var(--gold); text-transform: uppercase; }
+.display { font-size: 34px; font-weight: 900; letter-spacing: -.01em; margin: 6px 0 8px; }
+.lead { color: var(--muted); font-size: 14px; line-height: 1.6; max-width: 640px; }
+h2.sec { font-size: 20px; font-weight: 900; margin: 0 0 4px; }
+.sec-k { font-family: var(--mono); font-size: 10px; letter-spacing: .14em; color: var(--faint); text-transform: uppercase; }
+.label { font-family: var(--mono); font-size: 10px; letter-spacing: .08em; color: var(--muted); text-transform: uppercase; margin-bottom: 8px; }
+
+/* ===================== BOTONES ===================== */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: none; cursor: pointer; border-radius: 11px; font-family: var(--sans); font-weight: 700; font-size: 14px; padding: 12px 16px; transition: transform .12s, filter .15s, background .15s; }
+.btn:active { transform: translateY(1px); }
+.btn:disabled { opacity: .55; cursor: not-allowed; }
+.btn svg { width: 16px; height: 16px; flex: none; }
+.btn-gold { background: linear-gradient(135deg, var(--gold2), var(--gold)); color: #231a07; }
+.btn-gold:hover:not(:disabled) { filter: brightness(1.06); }
+.btn-blue { background: linear-gradient(135deg, #3F73C2, #1E4C8C); color: #fff; }
+.btn-blue:hover:not(:disabled) { filter: brightness(1.08); }
+.btn-ghost { background: var(--surf); color: var(--text); border: 1px solid var(--line2); }
+.btn-ghost:hover:not(:disabled) { background: var(--surf2); }
+.btn-sm { font-size: 12px; padding: 8px 12px; border-radius: 9px; }
+
+/* ===================== INPUTS ===================== */
+.field label { display: block; font-family: var(--mono); font-size: 10px; letter-spacing: .08em; color: var(--muted); text-transform: uppercase; margin-bottom: 7px; }
+.inp, .sel, textarea.inp { background: var(--surf); border: 1px solid var(--line2); border-radius: 10px; color: var(--text); font-family: var(--sans); font-size: 13px; padding: 9px 13px; outline: none; width: 100%; }
+.inp:focus, .sel:focus, textarea.inp:focus { border-color: var(--gold); }
+.inp::placeholder { color: var(--faint); }
+.inp.invalid { border-color: var(--red); }
+.field-error { color: var(--red); font-size: 11.5px; margin-top: 5px; }
+.sel { background: var(--navy2); cursor: pointer; color-scheme: dark; padding-right: 30px; appearance: none; -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239FB0D0' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 11px center; }
+.sel option { background: var(--navy2); color: var(--text); }
+.chk { display: flex; align-items: center; gap: 9px; font-size: 13px; color: var(--text); }
+.chk input { width: 16px; height: 16px; accent-color: var(--gold); }
+
+/* ===================== PILLS / BADGES ===================== */
+.pill { display: inline-block; padding: 2px 9px; border-radius: 20px; font-size: 11px; font-weight: 600; background: var(--b-blue); color: var(--blue-br); font-family: var(--mono); }
+.pill.g { background: var(--b-gold); color: var(--gold2); }
+.pill.gr { background: rgba(111, 191, 143, .16); color: var(--green); }
+.pill.rd { background: rgba(224, 115, 106, .16); color: var(--red); }
+.pill.am { background: rgba(208, 159, 72, .18); color: var(--gold2); }
+.badge { font-family: var(--mono); font-size: 10px; background: var(--surf2); color: var(--muted); padding: 1px 7px; border-radius: 20px; }
+
+/* ===================== CARDS / KPI ===================== */
+.card { background: var(--surf); border: 1px solid var(--line); border-radius: 15px; }
+.panel { padding: 18px 20px; }
+.panel .pt { font-size: 14px; font-weight: 700; margin-bottom: 14px; display: flex; align-items: center; gap: 9px; }
+.panel .pt svg { width: 16px; height: 16px; color: var(--gold); }
+.kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 13px; }
+.kpi { padding: 16px 17px; position: relative; overflow: hidden; }
+.kpi .kl { font-family: var(--mono); font-size: 10px; letter-spacing: .08em; color: var(--muted); text-transform: uppercase; }
+.kpi .kv { font-size: 24px; font-weight: 900; margin-top: 8px; line-height: 1; }
+.kpi .kv.go { color: var(--gold); }
+.kpi .kv.rd { color: var(--red); }
+.kpi .ks { font-size: 11px; color: var(--faint); margin-top: 6px; }
+.card.kpi.critical { background: rgba(224, 115, 106, .14); border-color: var(--red); }
+
+@media (max-width: 900px) {
+  .kpis { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ===================== TABLA ===================== */
+.twrap { overflow: auto; border: 1px solid var(--line); border-radius: 13px; }
+.tbl { width: 100%; border-collapse: collapse; font-size: 13px; }
+.tbl th { background: var(--blue); color: #fff; font-weight: 700; padding: 9px 12px; text-align: right; font-size: 11.5px; white-space: nowrap; }
+.tbl th:first-child, .tbl th.l { text-align: left; }
+.tbl td { padding: 9px 12px; text-align: right; border-top: 1px solid var(--line); color: var(--text); white-space: nowrap; }
+.tbl td:first-child, .tbl td.l { text-align: left; }
+.tbl tbody tr:nth-child(even) td { background: rgba(255, 255, 255, .02); }
+.tbl tbody tr:hover td { background: rgba(208, 159, 72, .10); cursor: pointer; }
+
+/* ===================== TERMÓMETRO ===================== */
+.thermo { position: relative; height: 12px; border-radius: 99px; background: rgba(255, 255, 255, .07); border: 1px solid var(--line); overflow: hidden; margin: 10px 0; }
+.thermo > i { position: relative; display: block; height: 100%; border-radius: 99px; overflow: hidden; background: linear-gradient(90deg, var(--gold), var(--gold2)); animation: thGlow 2.6s ease-in-out infinite; }
+.thermo > i.rd { background: linear-gradient(90deg, var(--red), #f0928a); }
+.thermo > i::before { content: ""; position: absolute; inset: 0; background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, .16) 0 8px, transparent 8px 20px); background-size: 28px 100%; animation: thStripes 700ms linear infinite; }
+.thermo > i::after { content: ""; position: absolute; inset: 0; background: linear-gradient(100deg, transparent 25%, rgba(255, 255, 255, .55) 50%, transparent 75%); background-size: 220% 100%; animation: thSweep 2.2s linear infinite; }
+@keyframes thStripes { to { background-position: 28px 0; } }
+@keyframes thSweep { 0% { background-position: 220% 0; } 100% { background-position: -120% 0; } }
+@keyframes thGlow { 0%, 100% { box-shadow: 0 0 14px rgba(208, 159, 72, .45); } 50% { box-shadow: 0 0 28px rgba(208, 159, 72, .8); } }
+@media (prefers-reduced-motion: reduce) { .thermo > i, .thermo > i::before, .thermo > i::after { animation: none; } }
+
+/* ===================== BARRAS ===================== */
+.bar { display: grid; grid-template-columns: 130px 1fr auto; align-items: center; gap: 12px; padding: 7px 0; }
+.bar .bl { font-size: 12.5px; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bar .bt { height: 9px; background: rgba(255, 255, 255, .07); border-radius: 99px; overflow: hidden; }
+.bar .bt i { display: block; height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--gold), var(--gold2)); transition: width 1s cubic-bezier(.22, 1, .36, 1); }
+.bar .bv { font-family: var(--mono); font-size: 12px; font-weight: 700; color: var(--gold2); white-space: nowrap; }
+
+/* ===================== AVISOS / SKELETON ===================== */
+.warn { display: flex; align-items: flex-start; gap: 11px; background: rgba(224, 115, 106, .08); border: 1px solid rgba(224, 115, 106, .28); border-radius: 12px; padding: 13px 16px; font-size: 12.5px; color: var(--text); line-height: 1.5; }
+.warn.ok { background: rgba(111, 191, 143, .08); border-color: rgba(111, 191, 143, .3); }
+.warn svg { width: 17px; height: 17px; flex: none; margin-top: 1px; color: var(--red); }
+.warn.ok svg { color: var(--green); }
+
+.skel { background: linear-gradient(90deg, var(--surf) 25%, var(--surf2) 50%, var(--surf) 75%); background-size: 200% 100%; animation: skelShine 1.4s ease-in-out infinite; border-radius: 8px; }
+@keyframes skelShine { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+@media (prefers-reduced-motion: reduce) { .skel { animation: none; } }
+
+.spinner { width: 20px; height: 20px; border: 2.5px solid var(--line2); border-top-color: var(--gold); border-radius: 50%; animation: spin .7s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ===================== LAYOUT ===================== */
+.row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 900px) { .grid2 { grid-template-columns: 1fr; } }
+code { font-family: var(--mono); font-size: 11.5px; color: var(--gold2); background: var(--surf2); padding: 2px 6px; border-radius: 6px; }
