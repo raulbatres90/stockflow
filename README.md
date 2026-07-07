@@ -13,6 +13,16 @@ stockflow/
 
 ---
 
+## Demo en vivo
+
+**Frontend:** https://stockflow-liard.vercel.app/dashboard
+
+> El backend corre en el plan free de Render, que duerme tras 15 min de
+> inactividad — la primera petición puede tardar ~30-50s en responder
+> (cold start) mientras la instancia arranca de nuevo.
+
+---
+
 ## 1. Stack tecnológico y versiones exactas
 
 ### Backend — `inventory-service`
